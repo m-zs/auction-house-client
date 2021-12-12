@@ -17,10 +17,10 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test:watch": "react-scripts test",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --watchAll=false --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext tsx,ts,js,jsx --fix",
     "prepare": "husky install"
@@ -67,5 +67,6 @@
       "npm run lint",
       "npm run test"
     ]
-  }
+  },
+  "proxy": "http://localhost:3000"
 }

@@ -38,6 +38,8 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "import/prefer-default-export": "off",
+    "react/function-component-definition": "off"
   }
 }
