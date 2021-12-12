@@ -1,41 +1,22 @@
-import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
 
-const users = gql`
-  query Users {
-    users {
-      items {
-        id
-        username
-        status
-        role
-      }
-    }
-  }
-`;
+const Homepage = lazy(() => import("pages/Home"));
+const Register = lazy(() => import("pages/Register"));
 
 export const App = () => {
-  const { loading, error, data } = useQuery(users);
-
-  console.log(data, error, loading);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Suspense fallback="loading...">
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/sign-up" element={<Register />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 };
+
+export default App;
