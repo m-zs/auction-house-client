@@ -41,7 +41,17 @@
     ],
     "import/prefer-default-export": "off",
     "react/function-component-definition": "off",
-    "no-restricted-exports": "off"
+    "no-restricted-exports": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**",
+          "**/*.stories.tsx",
+          "**/stories.tsx"
+        ]
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
