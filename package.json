@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.5.6",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -10,6 +11,7 @@
     "@types/node": "^12.20.37",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "graphql": "^16.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -17,7 +19,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "PORT=4000 react-scripts start",
+    "start": "cross-env PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test:watch": "react-scripts test",
     "test": "react-scripts test --watchAll=false --passWithNoTests",
@@ -48,6 +50,7 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.11.0",
     "eslint-config-airbnb": "^19.0.2",
     "eslint-config-prettier": "^8.3.0",
