@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import "./App.css";
+import Navbar from "components/Navbar";
 
 const Homepage = lazy(() => import("pages/Home"));
 const Register = lazy(() => import("pages/Register"));
@@ -9,6 +9,8 @@ const Register = lazy(() => import("pages/Register"));
 export const App = () => {
   return (
     <BrowserRouter>
+      <Navbar />
+
       <Suspense fallback="loading...">
         <Routes>
           <Route path="/" element={<Homepage />} />
