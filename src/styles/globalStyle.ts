@@ -5,7 +5,11 @@ import { fonts } from "./fonts";
 export const GlobalStyle = createGlobalStyle`
   ${fonts}
 
-  body {
-    font-family: 'Lato';
-  }
+  ${({ theme }) => `
+    body {
+      font-family: ${theme.fonts.main};
+      padding: 0;
+      margin: 0;
+    }
+  `}
 `;
