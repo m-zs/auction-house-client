@@ -1,6 +1,7 @@
 import { addDecorator } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { withInfo } from "@storybook/addon-info";
+import { BrowserRouter } from "react-router-dom";
 
 import { GlobalStyle, theme } from "../src/styles";
 
@@ -18,6 +19,6 @@ addDecorator(withInfo);
 addDecorator((storyFn) => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
-    {storyFn()}
+    <BrowserRouter>{storyFn()}</BrowserRouter>
   </ThemeProvider>
 ));
