@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-import "./index.css";
+import { GlobalStyle } from "styles/globalStyle";
 import App from "./components/App";
 
 const client = new ApolloClient({
@@ -13,6 +13,7 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
+      <GlobalStyle />
       <App />
     </ApolloProvider>
   </React.StrictMode>,
