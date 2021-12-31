@@ -87,5 +87,8 @@
       "npm run test"
     ]
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:3000",
+  "jest": {
+    "testMatch": ["<rootDir>/src/**/test.ts(x)?"]
+  }
 }
