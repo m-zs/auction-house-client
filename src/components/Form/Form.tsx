@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Control, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Control,
+  DeepMap,
+  DeepPartial,
+  FieldError,
+  SubmitHandler,
+  useForm,
+  UseFormRegister,
+} from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DocumentNode, useMutation } from "@apollo/client";
 import { ObjectSchema } from "yup";
@@ -14,7 +22,15 @@ import {
 
 interface Props<FormFields> {
   schema: ObjectSchema<any>;
-  render: (control: Control<FormFields>) => JSX.Element;
+  render: ({
+    control,
+    register,
+    errors,
+  }: {
+    control: Control<FormFields>;
+    register: UseFormRegister<FormFields>;
+    errors: DeepMap<DeepPartial<FormFields>, FieldError>;
+  }) => JSX.Element;
   query: DocumentNode;
   onSubmitCallback?: (data: FormFields) => void;
 }
@@ -27,7 +43,13 @@ const Form = <FormFields,>({
 }: Props<FormFields>) => {
   const [mutation, { loading }] = useMutation(query, { errorPolicy: "all" });
   const [formError, setFormError] = useState("");
-  const { handleSubmit, control, setError } = useForm<FormFields>({
+  const {
+    handleSubmit,
+    control,
+    setError,
+    register,
+    formState: { errors },
+  } = useForm<FormFields>({
     resolver: yupResolver(schema),
   });
 
@@ -95,7 +117,7 @@ const Form = <FormFields,>({
         </S.ErrorAlert>
       )}
 
-      {render(control)}
+      {render({ control, register, errors })}
     </S.Form>
   );
 };

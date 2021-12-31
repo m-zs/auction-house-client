@@ -48,7 +48,7 @@ const SignUp = () => {
         <Form<FormFields>
           schema={schema}
           query={SIGN_UP}
-          render={(control) => (
+          render={({ control }) => (
             <Grid container spacing={theme.spacings.m}>
               <Grid item xs={12}>
                 <Controller
