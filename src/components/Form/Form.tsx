@@ -110,7 +110,11 @@ const Form = <FormFields,>({
       )}
 
       {formError && (
-        <S.ErrorAlert severity="error" onClick={() => setFormError("")}>
+        <S.ErrorAlert
+          role="alert"
+          severity="error"
+          onClick={() => setFormError("")}
+        >
           <S.CloseIcon />
 
           {formError}
