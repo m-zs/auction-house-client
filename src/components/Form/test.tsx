@@ -7,7 +7,11 @@ import * as faker from "faker";
 
 import { customRender } from "utils/test";
 import Form from "./Form";
-import { STATUS_CODES_TO_MAP_FIELDS } from "./utils";
+import {
+  STATUS_CODES_TO_MAP_FIELDS,
+  parseErrorStringToInfoObject,
+  mapErrorStringsToInfoObjects,
+} from "./utils";
 
 describe("Form - component", () => {
   const query = gql`
@@ -161,6 +165,39 @@ describe("Form - component", () => {
 
     await waitFor(() => {
       expect(screen.queryAllByRole("alert").length).toBe(1);
+    });
+  });
+});
+
+describe("Form - utils", () => {
+  describe("parseErrorStringToInfoObject", () => {
+    it("should parse string to valid object", () => {
+      const result = parseErrorStringToInfoObject("password is invalid");
+
+      expect(result).toMatchObject({
+        message: "Password is invalid",
+        field: "password",
+      });
+    });
+  });
+
+  describe("mapErrorStringsToInfoObjects", () => {
+    it("should return array of valid objects", () => {
+      const result = mapErrorStringsToInfoObjects([
+        "password is invalid",
+        "email is invalid",
+      ]);
+
+      expect(result).toMatchObject([
+        {
+          message: "Password is invalid",
+          field: "password",
+        },
+        {
+          message: "Email is invalid",
+          field: "email",
+        },
+      ]);
     });
   });
 });
