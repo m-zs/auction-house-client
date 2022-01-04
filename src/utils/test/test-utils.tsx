@@ -3,6 +3,7 @@ import { render, RenderOptions } from "@testing-library/react";
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
 import { ThemeProvider } from "styled-components";
 import { StyledEngineProvider } from "@mui/material";
+import "@testing-library/jest-dom";
 
 import { GlobalStyle, theme } from "styles";
 
