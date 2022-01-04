@@ -14,5 +14,6 @@ export const theme = {
     white: "#fff",
     black: "#000",
     main: "#1976d2",
+    mainHighlight: "#42a1ff",
   },
 };
