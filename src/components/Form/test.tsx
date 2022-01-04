@@ -27,7 +27,7 @@ describe("Form - component", () => {
     });
 
     customRender(
-      <Form<{ name: string; email: string }>
+      <Form<{ name: string; email: string }, { id: number }>
         query={query}
         schema={schema}
         onSubmitCallback={fn}
@@ -129,7 +129,7 @@ describe("Form - component", () => {
       },
     ];
 
-    const { fn } = setup({ mocks });
+    setup({ mocks });
 
     userEvent.type(screen.getByTestId("field-name"), name);
     userEvent.type(screen.getByTestId("field-email"), email);
@@ -137,10 +137,8 @@ describe("Form - component", () => {
     userEvent.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(fn).toHaveBeenCalled();
+      expect(screen.queryAllByRole("alert").length).toBe(2);
     });
-
-    expect(screen.queryAllByRole("alert").length).toBe(2);
   });
 
   it("should render form error on failed submission", async () => {

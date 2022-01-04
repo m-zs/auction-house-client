@@ -20,7 +20,7 @@ import {
   STATUS_CODES_TO_MAP_FIELDS,
 } from "./utils";
 
-interface Props<FormFields> {
+interface Props<FormFields, Response> {
   schema: ObjectSchema<any>;
   render: ({
     control,
@@ -32,15 +32,15 @@ interface Props<FormFields> {
     errors: DeepMap<DeepPartial<FormFields>, FieldError>;
   }) => JSX.Element;
   query: DocumentNode;
-  onSubmitCallback?: (data: FormFields) => void;
+  onSubmitCallback?: (data: Response) => void;
 }
 
-const Form = <FormFields,>({
+const Form = <FormFields, Response>({
   schema,
   render,
   query,
   onSubmitCallback,
-}: Props<FormFields>) => {
+}: Props<FormFields, Response>) => {
   const [mutation, { loading }] = useMutation(query, { errorPolicy: "all" });
   const [formError, setFormError] = useState("");
   const {
@@ -49,16 +49,17 @@ const Form = <FormFields,>({
     setError,
     register,
     formState: { errors },
+    reset,
   } = useForm<FormFields>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FormFields) => {
+  const onSubmit = async (fields: FormFields) => {
     try {
       setFormError("");
 
       await mutation({
-        variables: data,
+        variables: fields,
         update: (_, { errors, data }) => {
           const error = errors?.[0];
 
@@ -80,9 +81,11 @@ const Form = <FormFields,>({
             } else {
               setFormError(typeof msg === "string" ? msg : msg.join());
             }
-          }
+          } else {
+            if (onSubmitCallback) onSubmitCallback(data);
 
-          if (onSubmitCallback) onSubmitCallback(data);
+            reset();
+          }
         },
       });
     } catch (err) {
