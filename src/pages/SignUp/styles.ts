@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container, Avatar } from "@mui/material";
+import { Container, Avatar, Button } from "@mui/material";
 
 export const StyledContainer = styled(Container)`
   display: flex;
@@ -12,4 +12,15 @@ export const StyledAvatar = styled(Avatar)`
     margin: ${theme.spacings.m};
     background: ${theme.colors.main};
   `}
+`;
+
+export const ModalContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+
+export const ModalButton = styled(Button)`
+  margin-top: ${({ theme }) => theme.spacings.m};
 `;

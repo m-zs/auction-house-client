@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
 import { Controller } from "react-hook-form";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { gql } from "@apollo/client";
 
 import Form from "components/Form";
+import Modal from "components/Modal";
 import { theme } from "styles/theme";
 import * as S from "./styles";
 
@@ -21,11 +22,16 @@ const SIGN_UP = gql`
     createUser(
       user: { username: $username, email: $email, password: $password }
     ) {
-      id
       username
     }
   }
 `;
+
+interface SignUpResponse {
+  createUser: {
+    username: string;
+  };
+}
 
 interface FormFields {
   username: string;
@@ -34,6 +40,15 @@ interface FormFields {
 }
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [isSuccessModalActive, setIsSuccessModalActive] = useState(false);
+  const [newUser, setNewUser] = useState("");
+
+  const onSubmitSuccess = (data: SignUpResponse) => {
+    setNewUser(data.createUser.username);
+    setIsSuccessModalActive(true);
+  };
+
   return (
     <section>
       <S.StyledContainer maxWidth="xs">
@@ -45,7 +60,8 @@ const SignUp = () => {
           Sign up
         </Typography>
 
-        <Form<FormFields>
+        <Form<FormFields, SignUpResponse>
+          onSubmitCallback={onSubmitSuccess}
           schema={schema}
           query={SIGN_UP}
           render={({ control }) => (
@@ -121,6 +137,27 @@ const SignUp = () => {
           )}
         />
       </S.StyledContainer>
+
+      <Modal
+        open={isSuccessModalActive}
+        onClose={() => setIsSuccessModalActive(true)}
+        heading="Success!"
+      >
+        <S.ModalContentContainer>
+          <Typography component="h3" variant="subtitle1">
+            Hello {newUser}, we hope you will have a good time. If you would
+            like to sign in to your account - use the button below!
+          </Typography>
+
+          <S.ModalButton
+            fullWidth
+            variant="contained"
+            onClick={() => navigate("/sign-in", { replace: true })}
+          >
+            Go to login page
+          </S.ModalButton>
+        </S.ModalContentContainer>
+      </Modal>
     </section>
   );
 };
