@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
 import { Controller } from "react-hook-form";
 import * as yup from "yup";
@@ -8,6 +8,7 @@ import { gql } from "@apollo/client";
 
 import Form from "components/Form";
 import Modal from "components/Modal";
+import FieldWithError from "components/FieldWithError";
 import { theme } from "styles/theme";
 import * as S from "./styles";
 
@@ -17,7 +18,7 @@ const schema = yup.object({
   password: yup.string().min(4).max(60).required(),
 });
 
-const SIGN_UP = gql`
+export const SIGN_UP = gql`
   mutation CreateUser($username: String!, $email: String!, $password: String!) {
     createUser(
       user: { username: $username, email: $email, password: $password }
@@ -72,14 +73,14 @@ const SignUp = () => {
                   control={control}
                   defaultValue=""
                   render={({ field, fieldState: { error } }) => (
-                    <TextField
+                    <FieldWithError
                       {...field}
                       placeholder="Tom"
                       variant="outlined"
                       label="Username *"
-                      helperText={error?.message}
-                      error={!!error}
+                      errorMessage={error?.message}
                       fullWidth
+                      inputProps={{ "data-testid": "field-username" }}
                     />
                   )}
                 />
@@ -91,13 +92,13 @@ const SignUp = () => {
                   control={control}
                   defaultValue=""
                   render={({ field, fieldState: { error } }) => (
-                    <TextField
+                    <FieldWithError
                       {...field}
                       placeholder="example-email@web.com"
                       variant="outlined"
                       label="Email *"
-                      helperText={error?.message}
-                      error={!!error}
+                      errorMessage={error?.message}
+                      inputProps={{ "data-testid": "field-email" }}
                       fullWidth
                     />
                   )}
@@ -110,15 +111,15 @@ const SignUp = () => {
                   control={control}
                   defaultValue=""
                   render={({ field, fieldState: { error } }) => (
-                    <TextField
+                    <FieldWithError
                       {...field}
                       placeholder="password"
                       variant="outlined"
                       label="Password *"
                       type="password"
-                      helperText={error?.message}
-                      error={!!error}
+                      errorMessage={error?.message}
                       fullWidth
+                      inputProps={{ "data-testid": "field-password" }}
                     />
                   )}
                 />
