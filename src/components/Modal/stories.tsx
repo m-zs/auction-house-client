@@ -19,6 +19,7 @@ story.add("default", () => (
 ));
 
 story.add("with onClose callback", () => (
+  // eslint-disable-next-line no-alert
   <Modal heading="Heading" open onClose={() => alert("Test callback")}>
     {lorem}
   </Modal>
