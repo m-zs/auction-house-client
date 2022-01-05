@@ -15,6 +15,7 @@ declare module "styled-components" {
       black: string;
       main: string;
       mainHighlight: string;
+      error: string;
     };
   }
 }
