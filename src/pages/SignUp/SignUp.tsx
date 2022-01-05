@@ -144,7 +144,7 @@ const SignUp = () => {
         onClose={() => setIsSuccessModalActive(true)}
         heading="Success!"
       >
-        <S.ModalContentContainer>
+        <S.ModalContentContainer data-testid="success-modal">
           <Typography component="h3" variant="subtitle1">
             Hello {newUser}, we hope you will have a good time. If you would
             like to sign in to your account - use the button below!

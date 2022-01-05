@@ -4,6 +4,7 @@ import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
 import { ThemeProvider } from "styled-components";
 import { StyledEngineProvider } from "@mui/material";
 import "@testing-library/jest-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import { GlobalStyle, theme } from "styles";
 
@@ -14,14 +15,16 @@ interface ProvidersProps {
 }
 
 const Providers: FC<ProvidersProps> = ({ children, wrapperProps }) => (
-  <MockedProvider mocks={wrapperProps?.mocks || []}>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        {children}
-      </ThemeProvider>
-    </StyledEngineProvider>
-  </MockedProvider>
+  <BrowserRouter>
+    <MockedProvider mocks={wrapperProps?.mocks || []}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          {children}
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </MockedProvider>
+  </BrowserRouter>
 );
 
 const customRender = (
