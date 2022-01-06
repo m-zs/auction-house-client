@@ -141,7 +141,7 @@ const SignUp = () => {
 
       <Modal
         open={isSuccessModalActive}
-        onClose={() => setIsSuccessModalActive(true)}
+        onClose={() => setIsSuccessModalActive(false)}
         heading="Success!"
       >
         <S.ModalContentContainer data-testid="success-modal">
