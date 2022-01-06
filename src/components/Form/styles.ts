@@ -17,7 +17,7 @@ export const StyledAvatar = styled(Avatar)`
 
 export const Form = styled(Box)`
   position: relative;
-  margin: ${({ theme }) => theme.spacings.xl} 0;
+  padding: ${({ theme }) => theme.spacings.xl} 0;
 `;
 
 export const ErrorAlert = styled(Alert)`
