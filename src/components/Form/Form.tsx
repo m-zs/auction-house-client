@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Control,
   DeepMap,
@@ -41,7 +41,13 @@ const Form = <FormFields, Response>({
   query,
   onSubmitCallback,
 }: Props<FormFields, Response>) => {
-  const [mutation, { loading }] = useMutation(query, { errorPolicy: "all" });
+  const controller = useRef(new window.AbortController());
+  const [mutation, { loading }] = useMutation(query, {
+    errorPolicy: "all",
+    context: {
+      fetchOptions: { signal: controller.current.signal },
+    },
+  });
   const [formError, setFormError] = useState("");
   const {
     handleSubmit,
@@ -53,6 +59,12 @@ const Form = <FormFields, Response>({
   } = useForm<FormFields>({
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    return () => {
+      controller.current.abort();
+    };
+  }, []);
 
   const onSubmit = async (fields: FormFields) => {
     try {
