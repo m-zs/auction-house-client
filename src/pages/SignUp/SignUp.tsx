@@ -10,12 +10,13 @@ import Form from "components/Form";
 import Modal from "components/Modal";
 import FieldWithError from "components/FieldWithError";
 import { theme } from "styles/theme";
+import { userValidation } from "utils/validation";
 import * as S from "./styles";
 
 const schema = yup.object({
-  username: yup.string().min(3).max(32).required(),
-  email: yup.string().email().required(),
-  password: yup.string().min(4).max(60).required(),
+  username: userValidation.username,
+  email: userValidation.email,
+  password: userValidation.password,
 });
 
 export const SIGN_UP = gql`
