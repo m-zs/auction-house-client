@@ -28,8 +28,8 @@ export const ErrorAlert = styled(Alert)`
 
 export const CloseIcon = styled(CancelOutlined)`
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: -8px;
+  top: -8px;
 `;
 
 export const LoadingIndicator = styled.div`
