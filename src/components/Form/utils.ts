@@ -1,3 +1,4 @@
+import { capitalize } from "utils/common";
 import { ERROR_CODES } from "utils/const/error-codes";
 
 // errors with given status codes are in valid format to be used as parseErrorStringToInfoObject arg
@@ -10,7 +11,7 @@ export const STATUS_CODES_TO_MAP_FIELDS = [
 export const parseErrorStringToInfoObject = (
   message: string
 ): { field: string; message: string } => ({
-  message: message.charAt(0).toUpperCase() + message.slice(1),
+  message: capitalize(message),
   // field name comes first
   field: message.split(" ")[0],
 });
