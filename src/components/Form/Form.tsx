@@ -42,7 +42,7 @@ const Form = <FormFields, Response>({
   onSubmitCallback,
 }: Props<FormFields, Response>) => {
   const controller = useRef(new window.AbortController());
-  const [mutation, { loading }] = useMutation(query, {
+  const [mutation, { loading }] = useMutation<Response>(query, {
     errorPolicy: "all",
     context: {
       fetchOptions: { signal: controller.current.signal },
@@ -94,7 +94,7 @@ const Form = <FormFields, Response>({
               setFormError(typeof msg === "string" ? msg : msg.join());
             }
           } else {
-            if (onSubmitCallback) onSubmitCallback(data);
+            if (onSubmitCallback && data) onSubmitCallback(data);
 
             reset();
           }

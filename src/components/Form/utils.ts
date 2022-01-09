@@ -1,8 +1,10 @@
+import { ERROR_CODES } from "utils/const/error-codes";
+
 // errors with given status codes are in valid format to be used as parseErrorStringToInfoObject arg
 // [field] [error message]
 export const STATUS_CODES_TO_MAP_FIELDS = [
-  400, // bad input
-  409, // conflict
+  ERROR_CODES.BAD_INPUT,
+  ERROR_CODES.CONFLICT,
 ];
 
 export const parseErrorStringToInfoObject = (

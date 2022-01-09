@@ -1,0 +1,5 @@
+export enum ERROR_CODES {
+  BAD_INPUT = 400,
+  UNAUTHENTICATED = 401,
+  CONFLICT = 409,
+}
