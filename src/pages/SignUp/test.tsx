@@ -2,7 +2,8 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { customRender, screen, waitFor } from "utils/test";
-import SignUp, { SIGN_UP } from "./SignUp";
+import { SIGN_UP } from "api/mutations/sign-up";
+import SignUp from "./SignUp";
 
 describe("SignUp - component", () => {
   const variables = {
@@ -18,7 +19,7 @@ describe("SignUp - component", () => {
       },
       result: {
         data: {
-          createUser: { username: "username" },
+          createUser: { id: "id" },
         },
       },
     },

@@ -5,13 +5,13 @@ import {
   HttpLink,
 } from "@apollo/client";
 
-import { getAuthToken } from "utils/auth";
+import { getAuthUser } from "utils/auth";
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: ApolloLink.from([
     new ApolloLink((operation, forward) => {
-      const jwtToken = getAuthToken();
+      const jwtToken = getAuthUser()?.token;
 
       operation.setContext(({ headers = {} }) => ({
         headers: {

@@ -4,33 +4,19 @@ import { LockOpenOutlined } from "@mui/icons-material";
 import { Controller } from "react-hook-form";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { gql } from "@apollo/client";
 
+import { setAuthUser } from "utils/auth";
+import { SignInResponse, SIGN_IN } from "api/mutations/sign-in";
+import { userValidation } from "utils/validation";
 import Form from "components/Form";
 import FieldWithError from "components/FieldWithError";
 import { theme } from "styles/theme";
-import { userValidation } from "utils/validation";
-import { setAuthToken } from "utils/auth";
 import * as S from "./styles";
 
 const schema = yup.object({
   username: userValidation.username,
   password: userValidation.password,
 });
-
-export const SIGN_IN = gql`
-  mutation SignIn($username: String!, $password: String!) {
-    signIn(credentials: { username: $username, password: $password }) {
-      token
-    }
-  }
-`;
-
-interface SignInResponse {
-  signIn: {
-    token: string;
-  };
-}
 
 interface FormFields {
   username: string;
@@ -41,8 +27,7 @@ const SignIn: FC = () => {
   const navigate = useNavigate();
 
   const onSubmitSuccess = (data: SignInResponse) => {
-    setAuthToken(data.signIn.token);
-
+    setAuthUser(data.signIn.token);
     navigate("/", { replace: true });
   };
 

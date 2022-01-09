@@ -4,8 +4,9 @@ import { LockOutlined } from "@mui/icons-material";
 import { Controller } from "react-hook-form";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { gql } from "@apollo/client";
 
+import { getAuthUser } from "utils/auth";
+import { SignUpResponse, SIGN_UP } from "api/mutations/sign-up";
 import Form from "components/Form";
 import Modal from "components/Modal";
 import FieldWithError from "components/FieldWithError";
@@ -19,22 +20,6 @@ const schema = yup.object({
   password: userValidation.password,
 });
 
-export const SIGN_UP = gql`
-  mutation CreateUser($username: String!, $email: String!, $password: String!) {
-    createUser(
-      user: { username: $username, email: $email, password: $password }
-    ) {
-      username
-    }
-  }
-`;
-
-interface SignUpResponse {
-  createUser: {
-    username: string;
-  };
-}
-
 interface FormFields {
   username: string;
   email: string;
@@ -44,10 +29,8 @@ interface FormFields {
 const SignUp = () => {
   const navigate = useNavigate();
   const [isSuccessModalActive, setIsSuccessModalActive] = useState(false);
-  const [newUser, setNewUser] = useState("");
 
   const onSubmitSuccess = (data: SignUpResponse) => {
-    setNewUser(data.createUser.username);
     setIsSuccessModalActive(true);
   };
 
@@ -147,8 +130,8 @@ const SignUp = () => {
       >
         <S.ModalContentContainer data-testid="success-modal">
           <Typography component="h3" variant="subtitle1">
-            Hello {newUser}, we hope you will have a good time. If you would
-            like to sign in to your account - use the button below!
+            Hello {getAuthUser()}, we hope you will have a good time. If you
+            would like to sign in to your account - use the button below!
           </Typography>
 
           <S.ModalButton

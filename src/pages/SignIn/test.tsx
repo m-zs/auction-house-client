@@ -3,12 +3,13 @@ import userEvent from "@testing-library/user-event";
 import * as faker from "faker";
 
 import { customRender, screen, waitFor } from "utils/test";
-import { setAuthToken } from "utils/auth";
-import SignIn, { SIGN_IN } from "./SignIn";
+import { SIGN_IN } from "api/mutations/sign-in";
+import { setAuthUser } from "utils/auth";
+import SignIn from "./SignIn";
 
 const mockedUsedNavigate = jest.fn();
 
-jest.mock("utils/auth", () => ({ setAuthToken: jest.fn() }));
+jest.mock("utils/auth", () => ({ setAuthUser: jest.fn() }));
 jest.mock("react-router-dom", () => ({
   ...(jest.requireActual("react-router-dom") as any),
   useNavigate: () => mockedUsedNavigate,
@@ -58,7 +59,7 @@ describe("SignIn - component", () => {
     userEvent.click(screen.getByRole("button"));
 
     await waitFor(() => {
-      expect(setAuthToken).toHaveBeenCalledWith(token);
+      expect(setAuthUser).toHaveBeenCalledWith(token);
     });
     expect(mockedUsedNavigate).toHaveBeenCalledWith("/", { replace: true });
   });

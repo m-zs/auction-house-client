@@ -1,5 +1,13 @@
-export const setAuthToken = (token: string) => {
-  sessionStorage.setItem("token", token);
+import jwtDecode from "jwt-decode";
+
+import { User, userVar } from "state/vars";
+
+export const setAuthUser = (token: string) => {
+  const user = jwtDecode<Omit<User, "token">>(token);
+
+  if (user) {
+    userVar({ token, ...user });
+  }
 };
 
-export const getAuthToken = () => sessionStorage.getItem("token");
+export const getAuthUser = () => userVar();
