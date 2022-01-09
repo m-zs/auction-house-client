@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { ApolloProvider } from "@apollo/client";
 import { ThemeProvider } from "styled-components";
 import { StyledEngineProvider } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 
 import { client } from "utils/graphql/client";
 import { GlobalStyle, theme } from "styles";
@@ -14,7 +15,10 @@ ReactDOM.render(
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <App />
+
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
       </StyledEngineProvider>
     </ApolloProvider>
