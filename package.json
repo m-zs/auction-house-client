@@ -94,7 +94,8 @@
   "proxy": "http://localhost:3000",
   "jest": {
     "testMatch": [
-      "<rootDir>/src/**/test.ts(x)?"
+      "<rootDir>/src/**/test.ts(x)?",
+      "<rootDir>/src/**/**.test.ts(x)?"
     ]
   }
 }
