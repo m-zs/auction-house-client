@@ -16,6 +16,13 @@ declare module "styled-components" {
       main: string;
       mainHighlight: string;
       error: string;
+      lightGray: string;
+    };
+    breakpoints: {
+      mobile: string;
+      mobileLarge: string;
+      tablet: string;
+      laptop: string;
     };
   }
 }
