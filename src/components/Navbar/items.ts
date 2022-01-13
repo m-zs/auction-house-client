@@ -11,6 +11,8 @@ interface NavPage {
 
 export const NAV_PAGES: NavPage[] = [
   { url: "/", text: "Home" },
+  { url: "/latest", text: "Latest" },
+  { url: "/categories", text: "Categories" },
   { url: "/sign-up", text: "Sign Up", hideForUser: true },
   { url: "/sign-in", text: "Sign In", hideForUser: true },
 ];
