@@ -1,11 +1,10 @@
 import React from "react";
 import { gql } from "@apollo/client";
 import * as yup from "yup";
-import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as faker from "faker";
 
-import { customRender } from "utils/test";
+import { customRender, screen, waitFor } from "utils/test";
 import Form from "./Form";
 import {
   STATUS_CODES_TO_MAP_FIELDS,
